@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>共识粉碎机GTC线下交流会 - 报名</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0 20px;
+        }
+
+        .header .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #f093fb, #f5576c, #fda085);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+        }
+
+        .event-info {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .event-info .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .event-info .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .event-info .info-item .label {
+            min-width: 70px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .event-info .info-item .value {
+            font-weight: 500;
+        }
+
+        .event-info .privacy-note {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group label .required {
+            color: #f5576c;
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            font-size: 15px;
+            color: #fff;
+            outline: none;
+            transition: all 0.3s;
+            -webkit-appearance: none;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: rgba(240, 147, 251, 0.5);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 3px rgba(240, 147, 251, 0.1);
+        }
+
+        .form-group select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.5)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+        }
+
+        .form-group select option {
+            background: #302b63;
+            color: #fff;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .success-view {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-view .check-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+        }
+
+        .success-view h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .success-view p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.8;
+        }
+
+        .error-msg {
+            color: #f5576c;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        @media (max-width: 375px) {
+            .container {
+                padding: 16px 12px 32px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">&#x1F4A5;</div>
+            <h1>共识粉碎机GTC线下交流会</h1>
+            <p class="subtitle">打破信息茧房，碰撞思想火花</p>
+        </div>
+
+        <div class="event-info">
+            <div class="info-item">
+                <span class="label">活动时间</span>
+                <span class="value">2026年3月18日 周三 17:00</span>
+            </div>
+            <div class="info-item">
+                <span class="label">活动地点</span>
+                <span class="value">审核通过后邮件通知</span>
+            </div>
+            <div class="info-item">
+                <span class="label">活动费用</span>
+                <span class="value">免费</span>
+            </div>
+            <div class="privacy-note">
+                &#x1F512; 为保护活动隐私，具体地址将在报名审核通过后通过邮件发送
+            </div>
+        </div>
+
+        <div class="form-card" id="formCard">
+            <div class="form-title">填写报名信息</div>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label>姓名 <span class="required">*</span></label>
+                    <input type="text" id="name" placeholder="请输入您的姓名" required>
+                    <div class="error-msg" id="nameError">请输入姓名</div>
+                </div>
+
+                <div class="form-group">
+                    <label>公司名称 <span class="required">*</span></label>
+                    <input type="text" id="company" placeholder="请输入您的公司名称" required>
+                    <div class="error-msg" id="companyError">请输入公司名称</div>
+                </div>
+
+                <div class="form-group">
+                    <label>客户类型 <span class="required">*</span></label>
+                    <select id="customerType" required>
+                        <option value="" disabled selected>请选择客户类型</option>
+                        <option value="institutional">机构订阅客户</option>
+                        <option value="individual">个人订阅客户</option>
+                        <option value="non-subscriber">非订阅用户</option>
+                    </select>
+                    <div class="error-msg" id="typeError">请选择客户类型</div>
+                </div>
+
+                <div class="form-group">
+                    <label>邮箱地址 <span class="required">*</span></label>
+                    <input type="email" id="email" placeholder="请输入您的邮箱地址" required>
+                    <div class="error-msg" id="emailError">请输入有效的邮箱地址</div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">提交报名</button>
+            </form>
+        </div>
+
+        <div class="success-view" id="successView">
+            <div class="check-icon">&#x2713;</div>
+            <h2>报名提交成功！</h2>
+            <p>
+                感谢您的报名！<br>
+                我们将尽快审核您的申请。<br>
+                审核通过后，活动详情将发送至您的邮箱。<br>
+                请留意查收邮件。
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function showError(id, show) {
+            document.getElementById(id).style.display = show ? 'block' : 'none';
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const company = document.getElementById('company').value.trim();
+            const customerType = document.getElementById('customerType').value;
+            const email = document.getElementById('email').value.trim();
+
+            let valid = true;
+
+            if (!name) { showError('nameError', true); valid = false; }
+            else { showError('nameError', false); }
+
+            if (!company) { showError('companyError', true); valid = false; }
+            else { showError('companyError', false); }
+
+            if (!customerType) { showError('typeError', true); valid = false; }
+            else { showError('typeError', false); }
+
+            if (!email || !validateEmail(email)) { showError('emailError', true); valid = false; }
+            else { showError('emailError', false); }
+
+            if (!valid) return;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = '提交中...';
+
+            try {
+                const res = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, company, customerType, email })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    document.getElementById('formCard').style.display = 'none';
+                    document.getElementById('successView').style.display = 'block';
+                } else {
+                    alert(data.message || '提交失败，请稍后重试');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '提交报名';
+                }
+            } catch (err) {
+                alert('网络错误，请稍后重试');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '提交报名';
+            }
+        });
+    </script>
+</body>
+</html>
