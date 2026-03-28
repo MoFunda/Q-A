@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>报名管理后台 - 共识粉碎机GTC</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+            background: #f5f6fa;
+            color: #2d3436;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: #fff;
+            padding: 16px 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .navbar .stats {
+            font-size: 13px;
+            color: #636e72;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 24px auto;
+            padding: 0 16px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            background: #fff;
+            color: #636e72;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: #6c5ce7;
+            color: #fff;
+        }
+
+        .tab .count {
+            display: inline-block;
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 1px 8px;
+            font-size: 12px;
+            margin-left: 4px;
+        }
+
+        .tab.active .count {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+        }
+
+        .card-info { flex: 1; }
+
+        .card-info .name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .card-info .details {
+            font-size: 13px;
+            color: #636e72;
+            line-height: 1.8;
+        }
+
+        .card-info .details span {
+            display: inline-block;
+            margin-right: 16px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-institutional { background: #dfe6e9; color: #2d3436; }
+        .badge-individual { background: #ffeaa7; color: #636e72; }
+        .badge-non-subscriber { background: #fab1a0; color: #fff; }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-approve {
+            background: #00b894;
+            color: #fff;
+        }
+
+        .btn-approve:hover { background: #00a381; }
+
+        .btn-reject {
+            background: #ff7675;
+            color: #fff;
+        }
+
+        .btn-reject:hover { background: #e66767; }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .status-approved { background: #d4edda; color: #155724; }
+        .status-rejected { background: #f8d7da; color: #721c24; }
+
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #b2bec3;
+            font-size: 15px;
+        }
+
+        .login-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .login-box {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            width: 360px;
+            max-width: 90vw;
+        }
+
+        .login-box h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            outline: none;
+        }
+
+        .login-box input:focus {
+            border-color: #6c5ce7;
+        }
+
+        .login-box .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: #6c5ce7;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .login-error {
+            color: #ff7675;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        .time-info {
+            font-size: 12px;
+            color: #b2bec3;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <h2>管理员登录</h2>
+            <div class="login-error" id="loginError">密码错误</div>
+            <input type="password" id="adminPassword" placeholder="请输入管理员密码" autofocus>
+            <button class="btn-login" onclick="login()">登录</button>
+        </div>
+    </div>
+
+    <div style="display:none" id="mainContent">
+        <nav class="navbar">
+            <h1>共识粉碎机GTC - 报名管理</h1>
+            <div class="stats" id="statsInfo"></div>
+        </nav>
+
+        <div class="container">
+            <div class="tabs">
+                <button class="tab active" data-status="pending" onclick="switchTab(this)">
+                    待审核 <span class="count" id="pendingCount">0</span>
+                </button>
+                <button class="tab" data-status="approved" onclick="switchTab(this)">
+                    已通过 <span class="count" id="approvedCount">0</span>
+                </button>
+                <button class="tab" data-status="rejected" onclick="switchTab(this)">
+                    已拒绝 <span class="count" id="rejectedCount">0</span>
+                </button>
+            </div>
+
+            <div id="registrationList"></div>
+        </div>
+    </div>
+
+    <script>
+        let adminToken = '';
+        let allRegistrations = [];
+        let currentTab = 'pending';
+
+        const typeLabels = {
+            'institutional': '机构订阅客户',
+            'individual': '个人订阅客户',
+            'non-subscriber': '非订阅用户'
+        };
+
+        document.getElementById('adminPassword').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') login();
+        });
+
+        async function login() {
+            const password = document.getElementById('adminPassword').value;
+            try {
+                const res = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    adminToken = data.token;
+                    document.getElementById('loginOverlay').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'block';
+                    loadRegistrations();
+                } else {
+                    document.getElementById('loginError').style.display = 'block';
+                }
+            } catch (e) {
+                alert('网络错误');
+            }
+        }
+
+        async function loadRegistrations() {
+            try {
+                const res = await fetch('/api/admin/registrations', {
+                    headers: { 'Authorization': `Bearer ${adminToken}` }
+                });
+                const data = await res.json();
+                allRegistrations = data.registrations || [];
+                updateView();
+            } catch (e) {
+                alert('加载失败');
+            }
+        }
+
+        function updateView() {
+            const pending = allRegistrations.filter(r => r.status === 'pending');
+            const approved = allRegistrations.filter(r => r.status === 'approved');
+            const rejected = allRegistrations.filter(r => r.status === 'rejected');
+
+            document.getElementById('pendingCount').textContent = pending.length;
+            document.getElementById('approvedCount').textContent = approved.length;
+            document.getElementById('rejectedCount').textContent = rejected.length;
+            document.getElementById('statsInfo').textContent = `共 ${allRegistrations.length} 条报名`;
+
+            const filtered = allRegistrations.filter(r => r.status === currentTab);
+            const list = document.getElementById('registrationList');
+
+            if (filtered.length === 0) {
+                list.innerHTML = '<div class="empty">暂无数据</div>';
+                return;
+            }
+
+            list.innerHTML = filtered.map(r => `
+                <div class="card" id="card-${r.id}">
+                    <div class="card-info">
+                        <div class="name">${escapeHtml(r.name)}</div>
+                        <div class="details">
+                            <span>公司: ${escapeHtml(r.company)}</span>
+                            <span class="badge badge-${r.customerType}">${typeLabels[r.customerType] || r.customerType}</span>
+                        </div>
+                        <div class="details">
+                            <span>邮箱: ${escapeHtml(r.email)}</span>
+                        </div>
+                        <div class="time-info">提交时间: ${new Date(r.createdAt).toLocaleString('zh-CN')}</div>
+                    </div>
+                    <div class="card-actions">
+                        ${r.status === 'pending' ? `
+                            <button class="btn btn-approve" onclick="handleAction('${r.id}', 'approve')">通过</button>
+                            <button class="btn btn-reject" onclick="handleAction('${r.id}', 'reject')">拒绝</button>
+                        ` : `
+                            <span class="status-badge status-${r.status}">
+                                ${r.status === 'approved' ? '已通过' : '已拒绝'}
+                            </span>
+                        `}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function switchTab(el) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            currentTab = el.dataset.status;
+            updateView();
+        }
+
+        async function handleAction(id, action) {
+            const card = document.getElementById(`card-${id}`);
+            const buttons = card.querySelectorAll('.btn');
+            buttons.forEach(b => b.disabled = true);
+
+            try {
+                const res = await fetch(`/api/admin/registrations/${id}/${action}`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${adminToken}` }
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    const reg = allRegistrations.find(r => r.id === id);
+                    if (reg) reg.status = action === 'approve' ? 'approved' : 'rejected';
+                    updateView();
+                } else {
+                    alert(data.message || '操作失败');
+                    buttons.forEach(b => b.disabled = false);
+                }
+            } catch (e) {
+                alert('网络错误');
+                buttons.forEach(b => b.disabled = false);
+            }
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "event-registration",
+  "version": "1.0.0",
+  "description": "共识粉碎机GTC线下交流会 - 活动报名系统",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.7"
+  }
+}
